@@ -20,4 +20,4 @@
 > git push origin <new branch name>
 
 ## send pull request ## 
-performing in github UI
+PERFORMING IN GITHUB ui
