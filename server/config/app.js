@@ -34,6 +34,7 @@ mongoDB.once('open', () => {
 /* TO DO IMPORT ROUTER */
 let indexRouter = require('../routes/index');
 let usersRouter = require('../routes/users');
+let qNqRouter = require('../routes/quizNquest');
 
 var app = express();
 
@@ -102,6 +103,8 @@ passport.use(User.createStrategy());
 /* TO DO CONNECT ROUTER */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api',qNqRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -120,3 +123,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
