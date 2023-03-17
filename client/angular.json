@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "quiz-app": {
+    "quizApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -85,10 +85,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "quiz-app:build:production"
+              "browserTarget": "quizApp:build:production"
             },
             "development": {
-              "browserTarget": "quiz-app:build:development"
+              "browserTarget": "quizApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -96,7 +96,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "quiz-app:build"
+            "browserTarget": "quizApp:build"
           }
         },
         "test": {
