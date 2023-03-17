@@ -1,1 +1,81 @@
-<p>create-quiz works!</p>
+<div class="container overflow-auto">
+    <h3>Add Course Lessons:</h3>
+    <form class="add-lessons-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card class="mb-5" formArrayName="questions" *ngFor="let questionForm of questions.controls; let i = index">
+            <mat-card-content>
+                <div [formGroupName]="i">
+                    <mat-form-field class="field-full-width">
+                        <input matInput formControlName="prompt" placeholder="Question {{i + 1}}" id="{{'prompt'+i}}">
+                    </mat-form-field>
+                    
+                    <div formArrayName="options">
+                        <div  
+                            *ngFor="let option of getOptions(i).controls; let optionIndex=index"
+                        >
+                            <mat-form-field class="field-35-width">
+                                <mat-label >Option {{optionIndex}}</mat-label>
+                                <input matInput placeholder="Option {{i}}" formControlName='{{optionIndex}}' id="{{'option-1-'+i}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-row-reverse align-content-end">
+                        <mat-icon class="delete-btn" (click)="deleteLesson(i)" style="color: wheat">
+                            delete_forever</mat-icon>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Correct Answer</mat-label>
+                            <mat-select matNativeControl required formControlName="answer"
+                                >
+
+                                <mat-option
+                                    *ngFor="let option of getOptions(i).controls; let _optionIndex=index"
+                                    [value]="_optionIndex"
+                                >
+                                    {{option.value}}
+                                </mat-option>
+                                <!-- <mat-option value=0>{{getOptions(i).at(0).value}}</mat-option>
+                                <mat-option value="1">B</mat-option>
+                                <mat-option value=2>C</mat-option>
+                                <mat-option value=3>D</mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <mat-form-field class="field-35-width">
+                        <mat-label>Option 1</mat-label>
+                        <input matInput placeholder="Option 1" formControlName="a" id="{{'option-1-'+i}}">
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field class="field-35-width">
+                        <mat-label>Option 2</mat-label>
+                        <input matInput placeholder="Option 2" id="{{'option-2-'+i}}" formControlName="b">
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field class="field-35-width">
+                        <mat-label>Option 3</mat-label>
+                        <input matInput placeholder="Option 3" formControlName="c">
+                    </mat-form-field>
+                    <br />
+                    <div class="d-flex justify-content-between">
+                        <mat-form-field class="field-35-width">
+                            <mat-label>Option 4</mat-label>
+                            <input matInput placeholder="Option 4" formControlName="d">
+                        </mat-form-field>
+                    </div> -->
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div class="d-flex justify-content-between mb-10">
+            <div class="p-2">
+                <a mat-mini-fab (click)="addQuestion()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </a>
+            </div>
+            <div *ngIf="questions.length > 0" class="p-2">
+                <button mat-stroked-button color="warn" type="submit">
+                    submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
