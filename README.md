@@ -21,3 +21,8 @@
 
 ## send pull request ## 
 PERFORMING IN GITHUB ui
+
+## build the angular app ##
+> cd client
+> ng build ( ./client/dis folder willl be created)
+> swa deploy ./client --env production
