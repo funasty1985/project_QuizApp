@@ -14,7 +14,7 @@ module.exports.displayQuiz = (req, res) => {
       else
       {
       console.log(data)
-      return res.status(200).json({ data });
+      return res.status(200).json(data);
       }
     });
 

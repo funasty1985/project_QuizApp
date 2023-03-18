@@ -13,10 +13,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ModelModule } from '../model/model.module';
 import { MatSelectModule } from '@angular/material/select';
+import { ListQuizComponent } from './list-quiz/list-quiz.component';
 
 @NgModule({
   declarations: [
-    CreateQuizComponent
+    CreateQuizComponent,
+    ListQuizComponent
   ],
   imports: [
     CommonModule,

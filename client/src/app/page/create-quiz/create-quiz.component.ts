@@ -23,24 +23,6 @@ export class CreateQuizComponent implements OnInit{
             questions: this.fb.array(this.questionsData.map(question => this.createQuestion(question)))
         });
     }    
-
-    // createQuestion(question: (Question| undefined) = undefined):FormGroup{
-    //   return !question || !question.options ? this.fb.group({
-    //       prompt: ['', Validators.required],
-    //       a: ['', Validators.required],
-    //       b: ['', Validators.required],
-    //       c: ['', Validators.required],
-    //       d: ['', Validators.required],
-    //       ans: ['', Validators.required]}) :
-    //       this.fb.group({
-    //                 prompt: [question?.prompt, Validators.required],
-    //                 a: [question?.options[0], Validators.required],
-    //                 b: [question?.options[1], Validators.required],
-    //                 c: [question?.options[2], Validators.required],
-    //                 d: [question?.options[3],  Validators.required],
-    //                 ans: ['', Validators.required]
-    //             })
-    // }
     
     createQuestion(question: (Question| undefined) = undefined):FormGroup{
       return !question || !question.options ? this.fb.group({
