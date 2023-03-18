@@ -28,7 +28,7 @@ export class RestDataSource
 
     getQuizes(): Observable<Quiz[]>
     {
-        return this.http.get<Quiz[]>('api/quiz');
+        return this.http.get<Quiz[]>(this.baseUrl + 'api/quiz');
     }
 
     private loadToken(): void
