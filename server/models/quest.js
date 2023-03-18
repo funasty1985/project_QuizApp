@@ -12,6 +12,5 @@ let questSchema = new mongoose.Schema({
   collection: 'Question',
 });
 
-let questModel = mongoose.model('Questions', questSchema);
 
-module.exports = { questModel };
+module.exports = mongoose.model('Question', questSchema);
