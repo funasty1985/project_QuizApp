@@ -96,24 +96,30 @@ module.exports.displayQuestByQuizId = (req, res) => {
 
 }
 
-module.exports.processAddQuestion = (req, res, next) => {
-    console.log("check quest1");
-    const newQuest = questModel({
-        _id: new mongoose.Types.ObjectId(),
-        quizId: req.body.quizId,
-        prompt: req.body.prompt,
-        options: req.body.options,
-        answer: req.body.answer,     
-    });
-    questModel.create(newQuest, (err, question) => {        
-        if (err) {
-            console.log(err);
-            return res.status(500).send(err);
-        }
+module.exports.processAddQuestion = (req, res) => {
 
-        return res.status(200).json({id: question._id});
-    });
+    const newQuestions = req.body.questions.map(question => {
+        return new questModel({
+          _id: new mongoose.Types.ObjectId(),
+          quizId: question.quizId,
+          prompt: question.prompt,
+          options: question.options,
+          answer: question.answer,
+        });
+      });
+
+  questModel.insertMany(newQuestions, (err, questions) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    
+    return res.status(200).json(questions);
+  });
 };
+
+
+
 
 module.exports.processEditQuestion = (req, res, next) => {
     let id = req.params.id
@@ -189,30 +195,5 @@ module.exports.deleteQuiz = (req, res) => {
             console.log(err);
             res.status(500).json({ error: err });
         });
-
-    /*
-    questModel.find({quizId: ObjectId(id)}, (err,questions) => {
-        console.log("check1");
-        if (err) {
-            console.log(err);
-            res.status(500).json({ error: err });
-        } else {
-            res.status(200).json(questions);//{ message: 'Successfully deleted all questoins with quizID: ' +  quizID });
-        }
-    });
-
-    quizModel.find({ _id: ObjectId(id)}, (err,quiz) => {
-        console.log("check2");
-        if (err) {
-            console.log(err);
-            res.status(500).json({ error: err });
-        } else {
-            res.status(200).json(quiz);//{ message: 'Successfully deleted a Quiz with quizID: ' +  quizID });
-        }
-    });
-
-*/
-
-
 
 }
