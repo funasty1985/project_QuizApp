@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 
 // Define the schema for the bcontacts collection
 let quizSchema = mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
+    // _id: mongoose.Types.ObjectId,
    
     author: String,
 }, {

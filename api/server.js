@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 
+
+console.log('environment    ', process.env.ENVIRONMENT)
+console.log('PORT    ', process.env.PORT)
+console.log('MONGO_CONNECTION_STRING    ', process.env.MONGO_CONNECTION_STRING)
+if(process.env.ENVIRONMENT !== 'production') {
+    require('dotenv').config()
+}
+
 /**
  * Module dependencies.
  */
-
 var app = require('./server/config/app');
 var debug = require('debug')('week4:server');
 var http = require('http');
