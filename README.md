@@ -72,5 +72,30 @@ build image according to a Dockerfile (at the path where Dockerfile is located)
 
 Run an image with a designated name 
 > docker run -d -p 3080:3080 --name <process name> <image name>
+    eg. docker run -d -p 3080:3080 --name project-run project-image 
 
 ##################################
+
+deploy to docker image to azure 
+az acr build --image project/web-app:v1 --registry lianbfusi .
+
+login azure acr 
+sudo az acr login -n lianbfusi
+
+pull the image from repository
+docker pull lianbfusi.azurecr.io/project/web-app:v1
+
+enable admin 
+az acr update -n lianbfusi --admin-enabled true
+
+
+#######################################
+How to start servers locally 
+
+start backend server
+> cd backend 
+> npm run start
+
+start frondend (Angular) server
+> cd frontend
+> npm run start

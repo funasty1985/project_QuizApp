@@ -4,7 +4,7 @@ WORKDIR /usr/src
 COPY frontend/ ./frontend/
 RUN cd frontend && npm install && npm run build
 
-# Stage2: API Build
+# Stage2: backend Build
 FROM node:14-slim AS backend-build
 WORKDIR /usr/src
 COPY backend/ ./backend/

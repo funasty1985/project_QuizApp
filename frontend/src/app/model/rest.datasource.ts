@@ -3,10 +3,9 @@ import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http'
 import { Observable } from "rxjs";
 // import { JwtHelperService } from '@auth0/angular-jwt'
 import { Quiz } from "./quiz.model";
+import { environment } from "src/environments/environment";
 
-const PROTOCOL = 'http';
-const PORT = 3080;
-
+const { protocol, port } = environment;
 @Injectable()
 export class RestDataSource
 {
@@ -23,7 +22,8 @@ export class RestDataSource
 
     constructor(private http: HttpClient)
     {
-        this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+        console.log("env :: ", environment);
+        this.baseUrl = `${protocol}://${location.hostname}${!port ? "": `:${port}`}/`;
     }
 
     getQuizes(): Observable<Quiz[]>

@@ -28,7 +28,8 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
+console.log("App environment :: ", process.env.ENVIRONMENT)
+console.log("the server is listened at port -v2 : ", port);
 /**
  * Normalize a port into a number, string, or false.
  */

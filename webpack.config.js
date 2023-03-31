@@ -19,8 +19,8 @@ if (environment === 'test') {
   };
 } else if (environment === 'production') {
   ENVIRONMENT_VARIABLES = {
-    'process.env.ENVIRONMENT': JSON.stringify('test'),
-    'process.env.PORT': JSON.stringify('3080'),
+    'process.env.ENVIRONMENT': JSON.stringify('production'),
+    'process.env.PORT': JSON.stringify('80'),
     'process.env.MONGO_CONNECTION_STRING': JSON.stringify('mongodb+srv://portfolioApp:Fu2017fu@cluster0.ykgbhqe.mongodb.net/project1?retryWrites=true&w=majority')
   };
 }
