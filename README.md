@@ -94,8 +94,10 @@ How to start servers locally
 
 start backend server
 > cd backend 
+> npm install    <---- (for the first time only)
 > npm run start
 
 start frondend (Angular) server
 > cd frontend
+> npm install     <------ (for the first time only)
 > npm run start
