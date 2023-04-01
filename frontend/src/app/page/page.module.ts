@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { PartialModule } from '../partial/partial.module';
-import { CreateQuizComponent } from './create-quiz/create-quiz.component';
+import { CreateUpdateQuizComponent } from './create-update-quiz/create-update-quiz.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
@@ -20,7 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
-    CreateQuizComponent,
+    CreateUpdateQuizComponent,
     ListQuizComponent,
     OwnedQuizComponent
   ],

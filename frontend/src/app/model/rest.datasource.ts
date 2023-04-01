@@ -38,6 +38,22 @@ export class RestDataSource
         return this.http.get<Question[]>(this.baseUrl + `api/quiz/questions/${id}`);
     }
 
+    addQuiz(quiz: Quiz): Observable<Quiz>
+    {
+        return this.http.post<Quiz>(this.baseUrl + 'api/add-quiz', quiz);
+    }
+
+    editQuiz(quiz: Quiz): Observable<Quiz>
+    {
+        return this.http.post<Quiz>(this.baseUrl + `api/edit-quiz/${quiz._id}`, quiz);
+    }
+
+    deleteQuiz(quizId: string): Observable<string>
+    {
+        return this.http.get<any>(this.baseUrl + `api/delete-quiz/${quizId}`)
+    }
+
+
     private loadToken(): void
     {
         const token = localStorage.getItem('id_token');

@@ -29,4 +29,19 @@ export class QuizRepository
     getOwnedQuiz(): Quiz[]{
         return this.ownedQuizs
     }
+
+    addQuiz(quiz: Quiz): Observable<Quiz>
+    {
+        return this.dataSource.addQuiz(quiz);
+    }
+
+    editQuiz(quiz:Quiz): Observable<Quiz>
+    {
+        return this.dataSource.editQuiz(quiz);
+    }
+
+    deleteQuiz(quizId:string): Observable<string>
+    {
+        return this.dataSource.deleteQuiz(quizId);
+    }
 }

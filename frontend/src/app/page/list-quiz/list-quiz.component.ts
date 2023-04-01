@@ -11,7 +11,9 @@ export class ListQuizComponent {
 
   constructor(
     private repository: QuizRepository
-  ){}
+  ){
+    console.log("This is called")
+  }
 
   get quizs(): Quiz[]
   {

@@ -92,7 +92,7 @@ module.exports.displayQuestByQuizId = (req, res) => {
         }
 
         else { 
-            return res.status(404).json({message:'No such QuizId.'});
+            return res.status(200).json([]);
         } 
     });
 

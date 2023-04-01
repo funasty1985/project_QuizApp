@@ -5,19 +5,24 @@ import { Question } from 'src/app/model/question.model';
 import { RestDataSource } from 'src/app/model/rest.datasource';
 import { NgForm } from '@angular/forms';
 import { Quiz } from 'src/app/model/quiz.model';
+import { QuizRepository } from 'src/app/model/quiz.repository';
 
 @Component({
-  selector: 'app-create-quiz',
-  templateUrl: './create-quiz.component.html',
-  styleUrls: ['./create-quiz.component.css'],
+  selector: 'app-create-update-quiz',
+  templateUrl: './create-update-quiz.component.html',
+  styleUrls: ['./create-update-quiz.component.css'],
 })
-export class CreateQuizComponent{
+export class CreateUpdateQuizComponent{
     public questionForm!: FormGroup;
     public questionsData: Question[] = [];
     public isQuizCreated = false;
     public quiz: Quiz = new Quiz(undefined,undefined,undefined,undefined);
     
-    constructor(private fb:FormBuilder, private repository: QuestionRepository, private dateSource: RestDataSource) 
+    constructor(
+        private fb:FormBuilder, 
+        private questionRepository: QuestionRepository, 
+        private quizRepository: QuizRepository,
+        private dateSource: RestDataSource) 
     {
       const state = window.history.state;
       if(state.quiz){
@@ -70,7 +75,16 @@ export class CreateQuizComponent{
 
     onSubmitQuizInfo(quizInfoForm: NgForm){
       console.log(this.quiz); 
-      this.isQuizCreated = true;
+      // Hardcoded user HKer
+      this.quiz.author = "HKer"
+
+      if(this.isQuizCreated){
+        this.quizRepository.editQuiz(this.quiz).subscribe()
+      } else {
+        this.quizRepository.addQuiz(this.quiz).subscribe(quiz => {
+          this.isQuizCreated = true;
+        })
+      }
     }
 
     get questions():FormArray{

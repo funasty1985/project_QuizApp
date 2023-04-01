@@ -2,39 +2,42 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { QuizRepository } from 'src/app/model/quiz.repository';
 import { Quiz } from 'src/app/model/quiz.model';
 import { Router } from '@angular/router';
+import { RestDataSource } from 'src/app/model/rest.datasource';
 
 @Component({
   selector: 'app-owned-quiz',
   templateUrl: './owned-quiz.component.html',
   styleUrls: ['./owned-quiz.component.css']
 })
-export class OwnedQuizComponent {
+export class OwnedQuizComponent implements OnInit{
   displayedColumns: string[] = ['_id','title', 'author','description', "actions"]
-  // quizs: Quiz[] = [];
+  quizs: Quiz[] = [];
 
   constructor(
     private repository: QuizRepository,
+    private dataSource: RestDataSource,
     private router: Router
   ){
   }
 
-  // ngAfterViewInit(): void {
-  //   this.getOwnedQuiz();
-  // }
+  ngOnInit(): void {
+    this.getOwnedQuiz();
+  }
 
-  // getOwnedQuiz(){
-  //   this.dataSource.getQuizes("HKer").subscribe((data: any) => {
-  //     this.quizs = data;
-  //     console.log(this.quizs)
-  //   })
-  // }
+  getOwnedQuiz(){
+    this.dataSource.getQuizes("HKer").subscribe((data: any) => {
+      this.quizs = data;
+      console.log(this.quizs)
+    })
+  }
+
+  delteQuiz(quizId: string){
+    this.dataSource.deleteQuiz(quizId).subscribe((data: any) => {
+      this.getOwnedQuiz(); 
+    })
+  }
 
   toEditPage = (quiz: Quiz): void => {
       this.router.navigateByUrl('/edit-quiz', { state: {quiz} })
-  }
-
-  get quizs(): Quiz[]
-  {
-    return this.repository.getOwnedQuiz()
   }
 }
