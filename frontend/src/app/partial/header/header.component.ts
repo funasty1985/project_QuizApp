@@ -13,4 +13,8 @@ export class HeaderComponent {
     toCreatePage = (): void => {
       this.router.navigateByUrl('/create-quiz')
     }
+
+    toManagePage = (): void => {
+      this.router.navigateByUrl('/manage-quizzes')
+    }
 }

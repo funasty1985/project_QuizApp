@@ -1,0 +1,25 @@
+.mat-column-_id {
+    width: 10%;
+    padding-right: 24px;
+    text-align: center;
+}
+.mat-column-title {
+    width: 10%;
+    /* padding-right: 24px; */
+    text-align: center;
+}
+.mat-column-description {
+    width: 40%;
+    /* padding-right: 24px; */
+    /* text-align: center; */
+}
+.mat-column-author {
+    width: 20%;
+    /* padding-right: 24px; */
+    text-align: center;
+}
+.mat-column-actions {
+    width: 20%;
+    padding-right: 24px;
+    text-align: right;
+}

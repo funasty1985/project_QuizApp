@@ -5,7 +5,7 @@ export class Quiz {
         public _id?: number,
         public title?: string,
         public description?: string,
-        public author?: number,
+        public author?: string,
     ){}
 
     public toString(){

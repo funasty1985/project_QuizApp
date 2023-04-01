@@ -14,11 +14,15 @@ import { MatCardModule } from '@angular/material/card';
 import { ModelModule } from '../model/model.module';
 import { MatSelectModule } from '@angular/material/select';
 import { ListQuizComponent } from './list-quiz/list-quiz.component';
+import { OwnedQuizComponent } from './owned-quiz/owned-quiz.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
     CreateQuizComponent,
-    ListQuizComponent
+    ListQuizComponent,
+    OwnedQuizComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { ListQuizComponent } from './list-quiz/list-quiz.component';
     MatButtonModule,
     MatCardModule,
     ModelModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatTabsModule
   ],
   exports: [
     PartialModule,

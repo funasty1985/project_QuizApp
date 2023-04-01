@@ -7,15 +7,17 @@ let quizModel = require('../models/quiz');
 let questModel = require('../models/quest');
 
 module.exports.displayQuiz = (req, res) => {
-   
-    quizModel.find((err, data) => {
+    
+    const author = req.query?.author;
+    const condition = req.query?.author ? {author} : {};
+    
+    quizModel.find(condition, (err, data) => {
       if (err) {
         return res.status(500).json({ error: err });
       }
       else
       {
-      console.log(data)
-      return res.status(200).json(data);
+        return res.status(200).json(data);
       }
     });  
   };

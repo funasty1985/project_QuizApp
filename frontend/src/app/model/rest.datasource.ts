@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Observable } from "rxjs";
 // import { JwtHelperService } from '@auth0/angular-jwt'
 import { Quiz } from "./quiz.model";
+import { Question } from "./question.model";
 import { environment } from "src/environments/environment";
 
 const { protocol, port } = environment;
@@ -10,7 +11,7 @@ const { protocol, port } = environment;
 export class RestDataSource
 {
     baseUrl!: string;
-    authToken!: String;
+    authToken!: string;
 
     private httpOptions = {
         headers: new HttpHeaders({
@@ -26,9 +27,15 @@ export class RestDataSource
         this.baseUrl = `${protocol}://${location.hostname}${!port ? "": `:${port}`}/`;
     }
 
-    getQuizes(): Observable<Quiz[]>
+    getQuizes(name?: string): Observable<Quiz[]>
     {
-        return this.http.get<Quiz[]>( this.baseUrl + 'api/quiz');
+        const params = name ? new HttpParams().set('author', name) : {};
+        return this.http.get<Quiz[]>( this.baseUrl + 'api/quiz', {params});
+    }
+
+    getQuestionsByQuizId(id?: string): Observable<Question[]>
+    {
+        return this.http.get<Question[]>(this.baseUrl + `api/quiz/questions/${id}`);
     }
 
     private loadToken(): void

@@ -1,5 +1,48 @@
 # quizApp
 
+##### Basic Setup ######
+
+# install angular 
+sudo npm install -g @angular/cli
+
+# create app (including angular routing)
+ng new BookStore --routing=true --skip-tests=true --style=css --skip-git=true
+
+# install packages for frontend
+cd client
+npm install bootstrap @fortawesome/fontawesome-free jquery popper.js --save
+npm install @types/jquery @types/bootstrap --save-dev
+
+
+# config angular.json for bootstrap and font-awsome
+"./node_modules/bootstrap/dist/css/bootstrap.min.css",
+"./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+"src/Content/styles.css"
+
+# add Content and Scripts folders
+    # add app.ts 
+
+# add sript path to config angular.json 
+"node_modules/jquery/dist/jquery.min.js",
+"node_modules/bootstrap/dist/js/bootstrap.min.js",
+"src/Scripts/app.js"
+
+###########################
+
+# run app server
+ng serve --open
+
+# generate a component 
+ng generate component partials/Header
+
+
+######## mock server setup ##########
+
+# install mock server
+npm install json-server --save-dev
+
+# install jsonwebtoken
+npm install jsonwebtoken --save-dev
 
 ### Basic Git Operation ###
 Check git status
@@ -77,13 +120,13 @@ Run an image with a designated name
 ##################################
 
 deploy to docker image to azure 
-az acr build --image project/web-app:v1 --registry lianbfusi .
+az acr build --image project/web-app:v2 --registry lianbfusi .
 
 login azure acr 
 sudo az acr login -n lianbfusi
 
 pull the image from repository
-docker pull lianbfusi.azurecr.io/project/web-app:v1
+docker pull lianbfusi.azurecr.io/project/web-app:v2
 
 enable admin 
 az acr update -n lianbfusi --admin-enabled true
