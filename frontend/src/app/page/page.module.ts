@@ -17,12 +17,16 @@ import { ListQuizComponent } from './list-quiz/list-quiz.component';
 import { OwnedQuizComponent } from './owned-quiz/owned-quiz.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
     CreateUpdateQuizComponent,
     ListQuizComponent,
-    OwnedQuizComponent
+    OwnedQuizComponent,
+    WelcomeComponent,
+    QuestionComponent
   ],
   imports: [
     CommonModule,
