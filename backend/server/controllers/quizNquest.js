@@ -36,11 +36,33 @@ module.exports.displayQuiz = (req, res) => {
             return res.status(500).send(err);
         }
 
-        return res.status(200).json({id: quiz._id});
+        return res.status(200).json({_id: quiz._id});
     });
 };
 
 const { ObjectId } = require('mongodb');
+
+module.exports.processQuizQuestion = async (req, res, next) => {
+    try{
+        const quizId = req.body.quizId;
+        console.log("this is model") 
+        await questModel.deleteMany({quizId: ObjectId(quizId)});
+        
+        const newQuestions = req.body.questions.map(question => {
+            return new questModel({
+            _id: new mongoose.Types.ObjectId(),
+                quizId: quizId,
+                prompt: question.prompt,
+                options: question.options,
+                answer: question.answer,
+            });
+        });
+        await questModel.insertMany(newQuestions);
+        return res.status(200).json({});
+    } catch(err) {
+            res.status(500).json({ error: err });
+    }   
+}
 
 module.exports.processEditQuiz = (req, res, next) => {
     let id = req.params.id

@@ -19,5 +19,8 @@ export class QuestionRepository
         return this.questions
     }
     
-    
+    createUpdateQuestions(questionsObj: any): Observable<any>
+    {
+        return this.dataSource.createUpdateQuestions(questionsObj);
+    }
 } 
