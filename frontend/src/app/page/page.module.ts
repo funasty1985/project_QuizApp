@@ -19,6 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { QuestionComponent } from './question/question.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { QuestionComponent } from './question/question.component';
     ListQuizComponent,
     OwnedQuizComponent,
     WelcomeComponent,
-    QuestionComponent
+    QuestionComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,

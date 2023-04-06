@@ -1,5 +1,5 @@
 <div class="container overflow-auto">
-    <mat-tab-group animationDuration="0ms" backgroundColor="accent" class="pt-5">
+    <mat-tab-group animationDuration="0ms" class="pt-5">
         <mat-tab label="Quiz Info">
             <form 
                 #quizInfoForm="ngForm" 
@@ -7,10 +7,10 @@
                 class="mt-5"
                 (ngSubmit)="onSubmitQuizInfo(quizInfoForm)"
             >
-                <mat-card class="mb-5">
+                <mat-card class="mb-5" appearance="outlined">
                     <mat-card-content>
                         <div class="row">
-                            <mat-form-field class="field-35-width">
+                            <mat-form-field class="field-35-width mt-3">
                                 <mat-label>Quiz Title</mat-label>
                                 <input 
                                     matInput 
@@ -33,7 +33,7 @@
                     </mat-card-content>
                 </mat-card>
                 <div class="d-flex justify-content-end mb-5">
-                    <button mat-raised-button color="accent" type="submit">
+                    <button mat-raised-button color="primary" type="submit">
                         Submit Quiz Info
                     </button>
                 </div>
@@ -41,10 +41,10 @@
         </mat-tab>
         <mat-tab label="Questions" *ngIf="isQuizCreated">
             <form class="add-lessons-form" [formGroup]="questionForm" (ngSubmit)="onSubmitQuestions()" class="mt-5">
-                <mat-card class="mb-5" formArrayName="questions" *ngFor="let questionForm of questions.controls; let i = index">
+                <mat-card appearance="raised" class="mb-5" formArrayName="questions" *ngFor="let questionForm of questions.controls; let i = index">
                     <mat-card-content>
-                        <div [formGroupName]="i">
-                            <mat-form-field class="field-full-width">
+                        <div [formGroupName]="i" >
+                            <mat-form-field class="field-full-width mt-4">
                                 <input matInput formControlName="prompt" placeholder="Question {{i + 1}}" id="{{'prompt'+i}}">
                             </mat-form-field>
                             
@@ -60,8 +60,12 @@
                             </div>
                             
                             <div class="d-flex flex-row-reverse align-content-end">
-                                <mat-icon class="delete-btn" (click)="deleteLesson(i)" style="color: wheat">
-                                    delete_forever</mat-icon>
+
+                                <button mat-icon-button (click)="deleteLesson(i)">
+                                    <mat-icon color="warn">delete</mat-icon>
+                                </button>
+                                <!-- <mat-icon class="delete-btn" (click)="deleteLesson(i)" style="color: wheat">
+                                    delete_forever</mat-icon> -->
                                 <mat-form-field appearance="fill">
                                     <mat-label>Correct Answer</mat-label>
                                     <mat-select matNativeControl required formControlName="answer"
@@ -87,7 +91,7 @@
                             </a>
                         </div>
                         <div *ngIf="questions.length > 0" class="p-2">
-                            <button mat-raised-button color="accent" type="submit">
+                            <button mat-raised-button color="primary" type="submit">
                                 Submit Questions
                             </button>
                         </div>

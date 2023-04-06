@@ -5,6 +5,7 @@ import { QuestionRepository } from './question.repository';
 import { StaticDataSource } from './static.datasource';
 import { RestDataSource } from './rest.datasource';
 import { QuizRepository } from './quiz.repository';
+import { AuthService } from './auth.service';
 
 
 
@@ -19,7 +20,8 @@ import { QuizRepository } from './quiz.repository';
     QuizRepository,
     StaticDataSource,
     RestDataSource,
-    // {provide: StaticDataSource, useClass: RestDataSource}
+    {provide: StaticDataSource, useClass: RestDataSource},
+    AuthService
   ]
 })
 export class ModelModule { }

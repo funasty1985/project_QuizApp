@@ -2,8 +2,10 @@
     width: 100%
 }
 
-
-
 .field-35-width{
     width: 35%
+}
+
+.mat-mdc-card-content{
+    background-color: lightgrey;
 }

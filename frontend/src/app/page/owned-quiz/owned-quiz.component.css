@@ -6,7 +6,7 @@
 .mat-column-title {
     width: 20%;
     /* padding-right: 24px; */
-    text-align: center;
+    /* text-align: center; */
 }
 .mat-column-description {
     width: 30%;
@@ -16,10 +16,20 @@
 .mat-column-author {
     width: 20%;
     /* padding-right: 24px; */
-    text-align: center;
+    /* text-align: center; */
 }
 .mat-column-actions {
     width: 20%;
     padding-right: 24px;
-    text-align: right;
+    /* text-align: right; */
+}
+
+.mat-mdc-header-row{
+    background-color: #00695C;
+    color:white
+}
+
+.mat-mdc-header-cell{
+    color: white;
+    text-align: left;
 }

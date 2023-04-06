@@ -5,13 +5,15 @@ import { Observable } from "rxjs";
 import { Quiz } from "./quiz.model";
 import { Question } from "./question.model";
 import { environment } from "src/environments/environment";
+import { User } from "./user.model";
 
 const { protocol, port } = environment;
 @Injectable()
 export class RestDataSource
 {
     baseUrl!: string;
-    authToken!: string;
+    authToken?: string;
+    user?:User;
 
     private httpOptions = {
         headers: new HttpHeaders({
@@ -66,4 +68,33 @@ export class RestDataSource
         this.authToken = token!;
         this.httpOptions.headers = this.httpOptions.headers.set('Authorization', `${this.authToken}`) //??
     }
+
+    authenticate(user: User): Observable<any>{
+        return this.http.post<any>(this.baseUrl + 'login', user, this.httpOptions)
+    }
+
+    storeUserData(token: any, user: User): void
+    {
+        localStorage.setItem("id_token", 'Bear'+ token);
+        localStorage.setItem("user", JSON.stringify(user));
+        console.log("token ::: ", token);
+        this.authToken = token;
+        this.user = user;
+    }
+
+    logout(): Observable<any>
+    {
+        this.authToken = undefined;
+        this.user = undefined;
+        return this.http.get<any>(this.baseUrl + 'logout', this.httpOptions)
+    }
+
+    loggedIn(): boolean
+    {
+        if(!!this.authToken){
+            return true;
+        }
+        return false;
+    }
+
 }
