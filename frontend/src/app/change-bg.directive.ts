@@ -1,12 +1,12 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core'
 
 @Directive({
   selector: '[appChangeBg]'//**************134.00 */
 })
 export class ChangeBgDirective {
 
-  @Input() isCorrect : Boolean =false; //**************134.00 */
-  constructor(private el : ElementRef, private render : Renderer2) { }
+  @Input() isCorrect : Boolean = false; //**************134.00 */
+   constructor(private el : ElementRef, private render : Renderer2) { }
   @HostListener('click') answer(){
     if(this.isCorrect){
       this.render.setStyle(this.el.nativeElement,'background','green');

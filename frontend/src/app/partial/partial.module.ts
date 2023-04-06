@@ -7,6 +7,7 @@ import { BasePageComponent } from "./base-page/base-page.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 
+
 @NgModule({
     imports: [BrowserModule, FormsModule, RouterLink],
 
