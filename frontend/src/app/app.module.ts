@@ -7,7 +7,7 @@ import { PageModule } from './page/page.module';
 //import { WelcomeComponent } from './page/welcome/welcome.component';
 //import { QuestionComponent } from './page/question/question.component';
 import {HttpClientModule} from '@angular/common/http'
-import { ChangeBgDirective } from './change-bg.directive';
+import { CommonModule } from '@angular/common';
 
 export function jwtTokenGetter(): string
 {
@@ -15,10 +15,10 @@ export function jwtTokenGetter(): string
 }
 @NgModule({
   declarations: [
-    AppComponent,
-    ChangeBgDirective
+    AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     PageModule, 

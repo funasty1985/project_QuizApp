@@ -5,7 +5,7 @@ import { QuestionService } from 'src/app/service/question.service';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  styleUrls: ['./question.component.css'],
 })
 export class QuestionComponent implements OnInit {
 
@@ -45,7 +45,6 @@ export class QuestionComponent implements OnInit {
     }
 
     answer(currentQno: number, option:any){
-
       if(currentQno=== this.questionList.length){
         this.isQuizCompleted = true;
         this.stopCounter();

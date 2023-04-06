@@ -20,6 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { QuestionComponent } from './question/question.component';
 import { AuthComponent } from './auth/auth.component';
+import { ChangeBgDirective } from './change-bg.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthComponent } from './auth/auth.component';
     OwnedQuizComponent,
     WelcomeComponent,
     QuestionComponent,
-    AuthComponent
+    AuthComponent,
+    ChangeBgDirective
   ],
   imports: [
     CommonModule,
