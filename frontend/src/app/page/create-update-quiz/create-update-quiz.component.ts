@@ -6,6 +6,7 @@ import { RestDataSource } from 'src/app/model/rest.datasource';
 import { NgForm } from '@angular/forms';
 import { Quiz } from 'src/app/model/quiz.model';
 import { QuizRepository } from 'src/app/model/quiz.repository';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-create-update-quiz',
@@ -70,24 +71,30 @@ export class CreateUpdateQuizComponent{
     }
 
     onSubmitQuestions(){
-      console.log(this.questionForm.value);
+      const { questions } = this.questionForm.value; 
+      this.questionRepository.createUpdateQuestions({
+        quizId: this.quiz._id,
+        questions 
+      }).subscribe();
     } 
 
     onSubmitQuizInfo(quizInfoForm: NgForm){
-      console.log(this.quiz); 
       // Hardcoded user HKer
       this.quiz.author = "HKer"
 
       if(this.isQuizCreated){
         this.quizRepository.editQuiz(this.quiz).subscribe()
       } else {
-        this.quizRepository.addQuiz(this.quiz).subscribe(quiz => {
+        this.quizRepository.addQuiz(this.quiz).subscribe(data => {
+          console.log("data :::: ", data._id)
           this.isQuizCreated = true;
+          this.quiz._id = data._id
         })
       }
     }
 
-    get questions():FormArray{
+    get questions():FormArray
+    {
       return <FormArray> this.questionForm.get('questions');
     }
 

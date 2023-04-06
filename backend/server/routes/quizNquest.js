@@ -16,6 +16,7 @@ router.get('/quiz/questions/:id',qNqController.displayQuestByQuizId); // input e
 
 router.post('/add-question',qNqController.processAddQuestion); // input question content and return a question ID
 router.post('/edit-question/:id',qNqController.processEditQuestion); // intput a question ID return an updated question
+router.post('/quiz/createAndUpdateQuestions', qNqController.processQuizQuestion);
 
 /* GET to perform  Deletion - DELETE Operation */
 router.get('/delete-question/:id', qNqController.deleteQuestion); // input a question ID and return message

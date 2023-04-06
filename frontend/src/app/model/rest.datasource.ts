@@ -50,7 +50,13 @@ export class RestDataSource
 
     deleteQuiz(quizId: string): Observable<string>
     {
-        return this.http.get<any>(this.baseUrl + `api/delete-quiz/${quizId}`)
+        return this.http.get<string>(this.baseUrl + `api/delete-quiz/${quizId}`);
+    }
+
+    createUpdateQuestions(questionsObj: any): Observable<any>
+    {
+        console.log("questionsObj ::: ", questionsObj)
+        return this.http.post<any>(this.baseUrl + `api/quiz/createAndUpdateQuestions`, questionsObj);
     }
 
 
