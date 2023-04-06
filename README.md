@@ -79,7 +79,7 @@ push code to github
 ## local commiting new branch and push code to github 
 > git add .
 > git commit -m "what ever message"
-> git push origin <new branch name>
+> ig <new branch name>
 
 ## send pull request ## 
 PERFORMING IN GITHUB ui
