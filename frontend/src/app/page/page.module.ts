@@ -21,6 +21,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { QuestionComponent } from './question/question.component';
 import { AuthComponent } from './auth/auth.component';
 import { ChangeBgDirective } from './change-bg.directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ChangeBgDirective } from './change-bg.directive';
     ModelModule,
     MatSelectModule,
     MatTableModule,
-    MatTabsModule
+    MatTabsModule,
+    RouterModule
   ],
   exports: [
     PartialModule,
