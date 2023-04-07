@@ -29,7 +29,7 @@ module.exports.processLoginPage = (req, res, next) => {
           if(!user)
           {
             req.flash('loginMessage', 'Authentication Error');
-            return res.redirect('/login');
+            return res.json({success: false, msg: 'Login fail'});
           }
 
           req.login(user, (err)=> {
@@ -42,7 +42,7 @@ module.exports.processLoginPage = (req, res, next) => {
               const payload = 
               {
                 id: user._id,
-                displayName: user.displayName,
+                displayName: user.username,
                 username: user.username,
                 email: user.email
               }
@@ -85,7 +85,7 @@ module.exports.processRegisterPage = (req, res, next) => {
   let newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    displayName: req.body.displayName
+    displayName: req.body.username
   });
 
   // I think passport help to encrypt the password
@@ -100,11 +100,7 @@ module.exports.processRegisterPage = (req, res, next) => {
         );
         console.log('Error: User Already Exists');
       }
-      return res.render('auth/register', {
-          title: 'Register',
-          messages: req.flash('registerMessage'),
-          displayName: req.user ? req.user.displayName: ''
-      })
+      return res.json({success: false, msg: err})
     }
     else 
     {

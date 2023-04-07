@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/model/auth.service';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  user?: User;
 
-  constructor(private router: Router) { }
+  constructor(
+      private router: Router,
+      private authService: AuthService
+  ) { }
     
     toCreatePage = (): void => {
       this.router.navigateByUrl('/create-quiz')
@@ -16,5 +22,18 @@ export class HeaderComponent {
 
     toManagePage = (): void => {
       this.router.navigateByUrl('/manage-quizzes')
+    }
+
+    isloggedIn():boolean{
+      const result = this.authService.authenticated;
+      if(result)
+      {
+        this.user = JSON.parse(localStorage.getItem('user') || "");
+      }
+      return result;
+    }
+
+    logout(){
+      this.authService.logout();
     }
 }

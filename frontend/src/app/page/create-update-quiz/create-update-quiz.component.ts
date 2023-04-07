@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { Quiz } from 'src/app/model/quiz.model';
 import { QuizRepository } from 'src/app/model/quiz.repository';
 import { Subscriber } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-update-quiz',
@@ -18,8 +19,10 @@ export class CreateUpdateQuizComponent{
     public questionsData: Question[] = [];
     public isQuizCreated = false;
     public quiz: Quiz = new Quiz(undefined,undefined,undefined,undefined);
+    public selectedTab = 0;
     
     constructor(
+        private router: Router,
         private fb:FormBuilder, 
         private questionRepository: QuestionRepository, 
         private quizRepository: QuizRepository,
@@ -75,22 +78,27 @@ export class CreateUpdateQuizComponent{
       this.questionRepository.createUpdateQuestions({
         quizId: this.quiz._id,
         questions 
-      }).subscribe();
+      }).subscribe(data => {
+        this.router.navigateByUrl("/manage-quizzes");
+      });
     } 
 
     onSubmitQuizInfo(quizInfoForm: NgForm){
       // Hardcoded user HKer
-      this.quiz.author = "HKer"
+      this.quiz.author = localStorage.getItem("username") || "";
 
       if(this.isQuizCreated){
-        this.quizRepository.editQuiz(this.quiz).subscribe()
+        this.quizRepository.editQuiz(this.quiz).subscribe(data => {
+          this.selectedTab = 1;
+        })
       } else {
         this.quizRepository.addQuiz(this.quiz).subscribe(data => {
-          console.log("data :::: ", data._id)
           this.isQuizCreated = true;
-          this.quiz._id = data._id
+          this.quiz._id = data._id;
+          this.selectedTab = 1;
         })
       }
+
     }
 
     get questions():FormArray

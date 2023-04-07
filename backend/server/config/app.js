@@ -13,6 +13,8 @@ let passportJWT = require('passport-jwt');
 let JWTStrategy = passportJWT.Strategy;
 let ExtractJWT = passportJWT.ExtractJwt;
 
+let passportLoad = require("passport-local");
+let localStrategy = passportLoad.Strategy;
 let flash = require('connect-flash');
 
 // database setup

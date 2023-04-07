@@ -17,7 +17,7 @@ export class QuizRepository
             this.quizs = data;
         })
 
-        dataSource.getQuizes("HKer").subscribe(data => {
+        dataSource.getQuizes(localStorage.getItem('name') || "").subscribe(data => {
             this.ownedQuizs = data; 
         })
     }

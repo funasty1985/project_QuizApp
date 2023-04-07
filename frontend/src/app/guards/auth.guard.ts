@@ -22,7 +22,7 @@ export class AuthGuard
         else
         {
             console.log("cannot authenticate")
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/login');
             return false;
         }
     }

@@ -25,7 +25,7 @@ export class OwnedQuizComponent implements OnInit{
   }
 
   getOwnedQuiz(){
-    this.dataSource.getQuizes("HKer").subscribe((data: any) => {
+      this.dataSource.getQuizes(localStorage.getItem("username") || "").subscribe((data: any) => {
       this.quizs = data;
       console.log(this.quizs)
     })

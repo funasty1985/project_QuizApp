@@ -6,10 +6,10 @@ import { AuthService } from 'src/app/model/auth.service';
 
 
 @Component({
-  styleUrls: ['./auth.component.css'],
-  templateUrl: './auth.component.html',
+  styleUrls: ['./login.component.css'],
+  templateUrl: './login.component.html',
 })
-export class AuthComponent implements OnInit {
+export class LoginComponent implements OnInit {
   
     public user!: User;
     public errorMessage?: string;
@@ -33,7 +33,11 @@ export class AuthComponent implements OnInit {
           if(data.success){
             this.auth.storeUserData(data.token, data.user);
             this.router.navigateByUrl("/");
+          } else {
+            this.errorMessage = data.msg;
+            console.log("errorMessage", this.errorMessage)
           }
+
         })
       }
     }

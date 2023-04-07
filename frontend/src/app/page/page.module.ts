@@ -19,9 +19,10 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { QuestionComponent } from './question/question.component';
-import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './login/login.component';
 import { ChangeBgDirective } from './change-bg.directive';
 import { RouterModule } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,9 @@ import { RouterModule } from '@angular/router';
     OwnedQuizComponent,
     WelcomeComponent,
     QuestionComponent,
-    AuthComponent,
-    ChangeBgDirective
+    LoginComponent,
+    ChangeBgDirective,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
