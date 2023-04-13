@@ -10,6 +10,7 @@ import { User } from 'src/app/model/user.model';
 })
 export class HeaderComponent {
   user?: User;
+  public isCollaspeMenuDisplay = false;
 
   constructor(
       private router: Router,
@@ -35,5 +36,9 @@ export class HeaderComponent {
 
     logout(){
       this.authService.logout();
+    }
+
+    collapse(){
+      this.isCollaspeMenuDisplay = !this.isCollaspeMenuDisplay;
     }
 }
