@@ -11,7 +11,20 @@ export class QuestionComponent implements OnInit {
 
 
   public name : string="";
-  public questionList : any =[];
+
+  //////////////////////////updated questionlist type
+ public questionList: {
+  _id: string,
+  quizId: string,
+  prompt: string,
+  options: string[],
+  answer: number,
+  __v: number
+}[] = [];
+
+
+  ///////////////////////////////
+
   public currentQuestion : number =0; //************************ */
   public points : number =0; //************************ */
   counter=60; //************************ */
@@ -28,52 +41,64 @@ export class QuestionComponent implements OnInit {
       this.startCounter();
 
     }
-    getAllQuestions(){
+    /////////////////////////////////////// Change this.questionList = res;
+    getAllQuestions() {
       this.questionService.getQuestionJson()
-      .subscribe(res=>{
-        this.questionList = res.questions;
-      })
-
+        .subscribe(res => {
+          this.questionList = res;
+          // console.log(this.questionList);
+        });
     }
+
+    ////////////////////////////////////
     //**************59.45 */
     nextQuestion(){
       this.currentQuestion++;
+  // reset background color of all options
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => {
+    (option as HTMLElement).style.backgroundColor = '';
+    });
+    console.log("NextQue is clicked");
+
     }
+    
     //****************59.45 */
     previousQuestion(){
       this.currentQuestion--; 
     }
-
-    answer(currentQno: number, option:any){
-      if(currentQno=== this.questionList.length){
+////////////////////////////////////////////// change answer method codes
+    answer(currentQno: number, option: string) {
+      if (currentQno === this.questionList.length) {
         this.isQuizCompleted = true;
         this.stopCounter();
       }
-      if(option.correct){
-        this.points+=10;
+      if (option === this.questionList[currentQno-1].options[this.questionList[currentQno-1].answer]) {
+        // console.log('Answer is correct');
+        this.points += 10;
         this.correctAnswer++;
-        setTimeout(() =>{
+        setTimeout(() => {
           this.currentQuestion++;
           this.resetCounter();
           this.getProgressPercent();
-        },1000);
-        
+        }, 1000);
       }
       else {
-        setTimeout(()=>{
+        setTimeout(() => {
+          // console.log('Answer is Incorrect');
           this.currentQuestion++;
           this.inCorrectAnswer++;
           this.resetCounter();
           this.getProgressPercent();
-        },1000);
-
+        }, 1000);
       }
-  }
-
+    }
+////////////////////////////////////////////////////////////////
   startCounter(){
-    this.interval$ = interval(10000)
+    this.interval$ = interval(1000)
     .subscribe(val=>{
       this.counter--;
+      console.log("counter check :: ", this.counter)
       if(this.counter===0){
         this.currentQuestion++;
         this.counter=60;

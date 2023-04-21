@@ -1,4 +1,3 @@
-<p>question works!</p>
 
 <div class="container mt-5">
     <div class="card">
@@ -27,21 +26,26 @@
             <div class="progress mb-3">
                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [ngStyle]="{'width':progress+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+
+<!-- Following part has been changed to deal with questoin. -->
+            
             <div class="question">
                 <div class="card">
-                    <h3>{{questionList[currentQuestion]?.questionText}}</h3>
+                    <h3>{{questionList[currentQuestion].prompt}}</h3>
                 </div>
-            </div>
-            <div class="options">
+              </div>
+              <div class="options">
                 <ol *ngFor="let option of questionList[currentQuestion]?.options">
-                    <li (click)="answer(currentQuestion+1,option)">
-                        <div appChangeBg [isCorrect]="option.correct" class="card">
-                            {{option.text}}
-                        </div>
-                    </li>
-
+                  <li (click)="answer(currentQuestion+1, option)">
+                    <div appChangeBg [isCorrect]="option === questionList[currentQuestion].options[questionList[currentQuestion].answer]" class="card">
+                      {{ option }}
+                    </div>
+                  </li>
                 </ol>
-            </div>
+              </div>
+
+<!-- above part has been changed to deal with questoin. -->
+
             <div class="d-flex justify-content-between">
                 <button [disabled]="currentQuestion===0" class="btn" (click)="previousQuestion()"><i class="fa text-primary fa-chevron-left fa-3x" aria-hidden="true"></i></button>
                 <button class="btn" (click)="resetQuiz()"><i class="fa fa-refresh text-primary fa-3x" aria-hidden="true"></i></button>
