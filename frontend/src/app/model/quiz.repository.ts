@@ -29,6 +29,11 @@ export class QuizRepository
         return this.ownedQuizs
     }
 
+    getQuizList(): Observable<Quiz[]>
+    {
+        return this.dataSource.getQuizes();
+    }
+
     addQuiz(quiz: Quiz): Observable<Quiz>
     {
         return this.dataSource.addQuiz(quiz);

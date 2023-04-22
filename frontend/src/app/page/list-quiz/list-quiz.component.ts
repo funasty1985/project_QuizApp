@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuizRepository } from 'src/app/model/quiz.repository';
 import { Quiz } from 'src/app/model/quiz.model';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   templateUrl: './list-quiz.component.html',
   styleUrls: ['./list-quiz.component.css']
 })
-export class ListQuizComponent {
+export class ListQuizComponent implements OnInit {
+  public quizs!: Quiz[];
 
   constructor(
     private repository: QuizRepository,
@@ -17,10 +18,16 @@ export class ListQuizComponent {
     console.log("This is called")
   }
 
-  get quizs(): Quiz[]
-  {
-    return this.repository.getQuizs()
+  ngOnInit(): void {
+    this.repository.getQuizList().subscribe(data => {
+      this.quizs = data;
+    })
   }
+
+  // get quizs(): Quiz[]
+  // {
+  //   return this.repository.getQuizs()
+  // }
 
   toDoQuizPage(quizId : number|undefined, quizTitle: string|undefined){
     this.router.navigateByUrl('/welcome', { state: {quizId, quizTitle} })
