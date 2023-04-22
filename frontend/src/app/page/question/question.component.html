@@ -1,17 +1,17 @@
 
 <div class="container mt-5">
-    <div class="card">
+    <mat-card appearance="outlined">
         <div class="d-flex justify-content-between p-3">
             <div class="image">
-                <img src="https://img.icons8.com/color/96/000000/angularjs.png" width="90" alt="logo">
+                <!-- <img src="https://img.icons8.com/color/96/000000/angularjs.png" width="90" alt="logo"> -->
             </div>
-            <div class="quiz-header">
-                <h4 style="font-family: cursive;">Angular & TypeScript Quiz!</h4>
+            <div *ngIf="!isQuizCompleted" class="quiz-header">
+                <h4 style="font-family: cursive;">{{quizTitle}}</h4>
                 <span style="font-style: italic;">Welcome {{name}}</span>
             </div>
         </div>
 
-        <ng-container *ngIf="!isQuizCompleted">
+        <ng-container *ngIf="!isQuizCompleted && questionList.length > 0">
             <div class="d-flex justify-content-around py-3">
                 <div class="score">
                     <h5>{{points}} Points</h5>
@@ -29,35 +29,42 @@
 
 <!-- Following part has been changed to deal with questoin. -->
             
-            <div class="question">
-                <div class="card">
-                    <h3>{{questionList[currentQuestion].prompt}}</h3>
-                </div>
-              </div>
-              <div class="options">
-                <ol *ngFor="let option of questionList[currentQuestion]?.options">
-                  <li (click)="answer(currentQuestion+1, option)">
-                    <div appChangeBg [isCorrect]="option === questionList[currentQuestion].options[questionList[currentQuestion].answer]" class="card">
-                      {{ option }}
+            <div class="question-card">
+                <div class="question px-3">
+                    <div>
+                        <h3>{{questionList[currentQuestion].prompt}}</h3>
                     </div>
-                  </li>
+                </div>
+                <div class="options px-5">
+                <ol>
+                    <ng-container *ngFor="let option of questionList[currentQuestion]?.options; index as i">
+                        <li class="option"(click)="answer(currentQuestion, i)">
+                            <div appChangeBg 
+                                [isCorrect]="
+                                i === getCorrectAns(currentQuestion)">
+                                {{ option }}
+                            </div>
+                        </li>
+                    </ng-container>
                 </ol>
-              </div>
+                </div>
+            </div>
 
 <!-- above part has been changed to deal with questoin. -->
 
-            <div class="d-flex justify-content-between">
-                <button [disabled]="currentQuestion===0" class="btn" (click)="previousQuestion()"><i class="fa text-primary fa-chevron-left fa-3x" aria-hidden="true"></i></button>
+            <div class="d-flex justify-content-between control-bar">
+                <button [disabled]="true" class="btn" (click)="previousQuestion()"><i class="fa text-primary fa-chevron-left fa-3x" aria-hidden="true"></i></button>
                 <button class="btn" (click)="resetQuiz()"><i class="fa fa-refresh text-primary fa-3x" aria-hidden="true"></i></button>
-                <button class="btn" (click)="nextQuestion()"><i class="fa text-primary fa-chevron-right fa-3x" aria-hidden="true"></i></button>
+                <button 
+                    class="btn" (click)="nextQuestion()" [disabled]="isExceedQuestionCount(currentQuestion)"><i class="fa text-primary fa-chevron-right fa-3x" aria-hidden="true"></i></button>
             </div>
         </ng-container>
 
         <ng-container *ngIf="isQuizCompleted">
-            <div class="row d-flex justify-content-between">
-                <img style="width: 50%;" class="img-fluid col-sm-12 mx-auto" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
-                <div class="result text-center col-md-6 col-sm-12">
-                    <h3>Congratulations!! <br>You have completed the quiz. <br>Below is your result:</h3>
+            <div class="row d-flex flex-column">
+                <img style="width: 20%; padding: 20px" class="img-fluid col-sm-12 mx-auto" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
+                <div class="result text-center col-sm-12">
+                    <h1>Congratulations!!</h1> 
                     <p>Total Question Attempted : {{questionList.length}} </p>
                     <p>Total Correct Answered : {{correctAnswer}} </p>
                     <p>Total Wrong Answered : {{inCorrectAnswer}} </p>
@@ -66,5 +73,5 @@
             </div>
         </ng-container>
 
-    </div>
+    </mat-card>
 </div>

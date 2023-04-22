@@ -8,7 +8,6 @@ export class ChangeBgDirective {
   @Input() isCorrect : Boolean = false; //**************134.00 */
    constructor(private el : ElementRef, private render : Renderer2) { }
   @HostListener('click', ['$event.target']) answer(btn: any){
-    console.log("this is clicked", btn)
     if(this.isCorrect){
       this.render.setStyle(this.el.nativeElement,'background','green');
       this.render.setStyle(this.el.nativeElement,'color','#fff');

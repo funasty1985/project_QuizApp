@@ -10,16 +10,18 @@ export class WelcomeComponent implements OnInit {
   //*********welcome.compoenet.html***********/
   @ViewChild('name') nameKey!: ElementRef;
 
-  constructor(private route: Router) { }
+  public quizTitle!: string;
+
+  constructor(private route: Router) { 
+      this.quizTitle = window.history.state.quizTitle;
+  }
 
   ngOnInit(): void {
   }
 
   startQuiz(){
-    localStorage.setItem("name", this.nameKey.nativeElement.value);
-    this.route.navigateByUrl("/question")
+    const quizId = window.history.state.quizId;
+    localStorage.setItem("testCandidateName", this.nameKey.nativeElement.value);
+    this.route.navigateByUrl("/question", {state: {quizId, quizTitle: this.quizTitle}});
   }
-    
-  
-
 }

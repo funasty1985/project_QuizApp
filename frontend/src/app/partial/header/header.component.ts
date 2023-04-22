@@ -36,6 +36,7 @@ export class HeaderComponent {
 
     logout(){
       this.authService.logout();
+      this.router.navigateByUrl("/list-quiz");
     }
 
     collapse(){

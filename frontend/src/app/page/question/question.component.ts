@@ -1,6 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import { interval } from 'rxjs';
+import { RestDataSource } from 'src/app/model/rest.datasource';
 import { QuestionService } from 'src/app/service/question.service';
+import { Question } from 'src/app/model/question.model';
 
 @Component({
   selector: 'app-question',
@@ -11,17 +13,11 @@ export class QuestionComponent implements OnInit {
 
 
   public name : string="";
-
+  public quizId: string;
+  public quizTitle: string;
   //////////////////////////updated questionlist type
- public questionList: {
-  _id: string,
-  quizId: string,
-  prompt: string,
-  options: string[],
-  answer: number,
-  __v: number
-}[] = [];
 
+public questionList: Question[] = [];
 
   ///////////////////////////////
 
@@ -33,48 +29,62 @@ export class QuestionComponent implements OnInit {
   interval$ :any;
   progress: string ="0"; //*********122.31 */
   isQuizCompleted : boolean = false; //********142.15 */
-  constructor(private questionService : QuestionService ) {}
 
-    ngOnInit(): void {
-      this.name = localStorage.getItem("name")!;
-      this.getAllQuestions();
-      this.startCounter();
+  constructor(
+    private questionService : QuestionService, 
+    private dataSource: RestDataSource
+  ) {
+    this.quizId = window.history.state.quizId;
+    this.quizTitle = window.history.state.quizTitle;
+  }
 
+  ngOnInit(): void {
+    this.name = localStorage.getItem("testCandidateName")!;
+    // this.getAllQuestions();
+    this.getQuestionsByQuizId(this.quizId);
+    this.startCounter();
+  }
+
+    getQuestionsByQuizId(quizId: string){
+      this.dataSource.getQuestionsByQuizId(quizId).subscribe(data => {
+        this.questionList = data;
+      })
     }
+
     /////////////////////////////////////// Change this.questionList = res;
-    getAllQuestions() {
-      this.questionService.getQuestionJson()
-        .subscribe(res => {
-          this.questionList = res;
-          // console.log(this.questionList);
-        });
-    }
+    // getAllQuestions() {
+    //   this.questionService.getQuestionJson()
+    //     .subscribe(res => {
+    //       this.questionList = res;
+    //       // console.log(this.questionList);
+    //     });
+    // }
 
     ////////////////////////////////////
     //**************59.45 */
     nextQuestion(){
+      this.counter=60;
       this.currentQuestion++;
-  // reset background color of all options
-    const options = document.querySelectorAll('.option');
-    options.forEach(option => {
-    (option as HTMLElement).style.backgroundColor = '';
-    });
-    console.log("NextQue is clicked");
-
+      // reset background color of all options
+      const options = document.querySelectorAll('.option');
+      options.forEach(option => {
+      (option as HTMLElement).style.backgroundColor = '';
+      });
+      console.log("NextQue is clicked");
     }
     
     //****************59.45 */
     previousQuestion(){
       this.currentQuestion--; 
     }
+
+    getCorrectAns(currentQno: number){
+      const ans = this.questionList[currentQno].answer
+      return ans;
+    }
 ////////////////////////////////////////////// change answer method codes
-    answer(currentQno: number, option: string) {
-      if (currentQno === this.questionList.length) {
-        this.isQuizCompleted = true;
-        this.stopCounter();
-      }
-      if (option === this.questionList[currentQno-1].options[this.questionList[currentQno-1].answer]) {
-        // console.log('Answer is correct');
+    answer(currentQno: number, optionIndex: number) {
+      if (optionIndex === this.getCorrectAns(currentQno)) {
         this.points += 10;
         this.correctAnswer++;
         setTimeout(() => {
@@ -84,13 +94,20 @@ export class QuestionComponent implements OnInit {
         }, 1000);
       }
       else {
+        this.inCorrectAnswer++;
         setTimeout(() => {
-          // console.log('Answer is Incorrect');
           this.currentQuestion++;
-          this.inCorrectAnswer++;
           this.resetCounter();
           this.getProgressPercent();
         }, 1000);
+      }
+
+      if (currentQno + 1 === this.questionList.length) {
+        setTimeout(() => {
+          this.isQuizCompleted = true;
+          this.stopCounter();
+        }, 900)
+        return;
       }
     }
 ////////////////////////////////////////////////////////////////
@@ -98,7 +115,6 @@ export class QuestionComponent implements OnInit {
     this.interval$ = interval(1000)
     .subscribe(val=>{
       this.counter--;
-      console.log("counter check :: ", this.counter)
       if(this.counter===0){
         this.currentQuestion++;
         this.counter=60;
@@ -108,6 +124,10 @@ export class QuestionComponent implements OnInit {
     setTimeout(()=>{
       this.interval$.unsubscribe();
     },600000);
+  }
+
+  isExceedQuestionCount(currentQuestion: number): boolean{
+    return currentQuestion + 1 >= 2;
   }
 
   stopCounter(){
@@ -125,7 +145,7 @@ export class QuestionComponent implements OnInit {
   //**********119.10 */
   resetQuiz(){
     this.resetCounter();
-    this.getAllQuestions();
+    // this.getAllQuestions();
     this.points=0;
     this.counter=60;
     this.currentQuestion=0;
